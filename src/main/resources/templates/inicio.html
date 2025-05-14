@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/CSS/Index.css}" />
+<link rel="stylesheet" th:href="@{/CSS/ModoOscuro.css}" />
+
+
+</head>
+
+<body>
+
+  <!-------------------------------------------Barra de navegación vertical-------------------------------------------->
+  <nav class="navbar-vertical">
+
+    <!-- Logo de la aplicación -->
+    <div class="navbar-contenedor navbar-logo d-flex justify-content-center align-items-center"
+      style="border-radius: 50%;">
+      <a class="navbar-brand p-2" href="#">
+        <img src="../Recursos/Img/LogoSolo.png" alt="Logo" class="logo-navbar" style="width: 30px;">
+      </a>
+      <span class="badge badge-hover bg-dark">Vexa</span>
+    </div>
+
+    <!-- Opción: Inicio -->
+    <div class="navbar-contenedor d-flex justify-content-center align-items-center">
+      <a class="navbar-brand p-2" href="#">
+        <i class="bi bi-house-door-fill navbar-icono"></i>
+        <span class="badge badge-hover bg-dark">Inicio</span>
+      </a>
+    </div>
+
+    <!-- Opción: Pendientes -->
+    <div class="navbar-contenedor d-flex justify-content-center align-items-center">
+      <a class="navbar-brand p-2" href="#">
+        <i class="bi bi-alarm-fill navbar-icono"></i>
+        <span class="badge badge-hover bg-dark">Pendientes</span>
+      </a>
+    </div>
+
+    <!-- Opción: Completados -->
+    <div class="navbar-contenedor d-flex justify-content-center align-items-center">
+      <a class="navbar-brand p-2" href="#">
+        <i class="bi bi-clipboard-check-fill navbar-icono"></i>
+        <span class="badge badge-hover bg-dark">Completados</span>
+      </a>
+    </div>
+
+    <!-- Opción: Etiquetas -->
+    <div class="navbar-contenedor d-flex justify-content-center align-items-center">
+      <a class="navbar-brand p-2" href="#">
+        <i class="bi bi-tags-fill navbar-icono"></i>
+        <span class="badge badge-hover bg-dark">Etiquetas</span>
+      </a>
+    </div>
+
+    <!-- Opción: Estadísticas -->
+    <div class="navbar-contenedor d-flex justify-content-center align-items-center">
+      <a class="navbar-brand p-2" href="#">
+        <i class="bi bi-bar-chart-fill navbar-icono"></i>
+        <span class="badge badge-hover bg-dark">Estadísticas</span>
+      </a>
+    </div>
+
+    <!-- Opción: Notificaciones -->
+    <div class="navbar-contenedor d-flex justify-content-center align-items-center">
+      <a class="navbar-brand p-2" href="#">
+        <i class="bi bi-bell-fill navbar-icono"></i>
+        <span class="badge badge-hover bg-dark">Notificaciones</span>
+      </a>
+    </div>
+
+  </nav>
+
+  <!----------------------------------------------Barra de busqueda---------------------------------------------------->
+  <div class="barra-busqueda d-flex align-items-center px-3 py-2 shadow-sm">
+    <i class="bi bi-search-heart me-2 icono-lupa "></i>
+    <input type="text" class="form-control input-busqueda" placeholder="Buscar...">
+  </div>
+
+  <!----------------------------------------------------Perfil--------------------------------------------------------->
+  <div class="perfil position-fixed end-0 p-3">
+
+    <!-- Imagen de perfil con ícono (activa el menú colapsable) -->
+    <div class="d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#menuMiniPerfil"
+      style="cursor: pointer;">
+      <img src="../Recursos/Img/perfil.png" alt="Perfil" class="img-perfil">
+      <i class="bi bi-caret-down-fill ms-1"></i>
+    </div>
+
+    <!-- Menú de MiniPerfil -->
+    <div id="menuMiniPerfil" class="collapse mt-5">
+
+      <!-- Tarjeta que contiene los datos del perfil y opciones -->
+      <div class="card shadow menu-contenedor">
+
+        <!-- Sección superior con info del usuario -->
+        <div class="p-3">
+          <small class="text-muted">Perfil de: </small>
+          <div class="d-flex align-items-center rounded p-1 mt-1" style="max-width: 300px;">
+            <!-- Mini imagen del perfil -->
+            <img src="../Recursos/Img/perfil.png" class="img-perfil-mini me-2">
+            <!-- Nombre y correo del usuario -->
+            <div class="flex-grow-1 min-w-0">
+              <strong>Robert Vs</strong><br>
+              <small class="text-muted">Personal</small><br>
+              <small class="text-muted text-truncate d-block" style="max-width: 180px;">
+                robert.vasquez.2001@gmail.com
+              </small>
+            </div>
+
+            <!-- Icono de verificación -->
+            <i class="bi bi-check2 ms-auto text-dark"></i>
+          </div>
+        </div>
+
+        <!-- Línea divisoria -->
+        <hr class="my-1">
+
+        <!-- Sección inferior con opciones -->
+        <div class="p-3">
+          <div class="opcion-menu">Editar perfil</div>
+          <small class="text-muted">Configuraciones</small>
+          <div class="opcion-menu" id="btnModoOscuro">Modo oscuro</div>
+          <div class="opcion-menu text-danger">Cerrar Sesión</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------------------------Tabla de tareas--------------------------------------------------->
+  <div class="container-tabla">
+
+    <!-- Título de la tabla-->
+    <h2 class="mb-3 titulo">Listado de Tareas</h2>
+
+    <!-- Tabla Responsive-->
+    <div class="table-responsive">
+
+      <table id="tablaTareas" class="table table-light table-hover align-middle text-center ">
+
+        <!-- Encabezados de la tabla -->
+        <thead class="table-responsive">
+          <tr>
+            <th>Cod</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Etiqueta</th>
+            <th>Estado</th>
+            <th>Prioridad</th>
+            <th>Fecha Límite</th>
+            <th>Fecha Creación</th>
+            <th>Check List</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <!---------------------------------------- Ejemplos ------------------------------------------------>
+        <tbody class="table-responsive">
+          <tr th:each="tarea : ${tareas}">
+            <td th:text="${tarea.id}"></td>
+            <td th:text="${tarea.titulo}"></td>
+            <td th:text="${tarea.descripcion}"></td>
+            <td th:text="${tarea.etiqueta}"></td>
+            <td th:text="${tarea.estado}"></td>
+            <td th:text="${tarea.prioridad}"></td>
+            <td th:text="${tarea.fechaLimite}"></td>
+            <td th:text="${tarea.fechaCreacion}"></td>
+            <td>
+              <input class="form-check-input" type="checkbox" th:checked="${tarea.checkList}" >
+            </td>
+            <td class="td-acciones">
+              <div class="d-flex justify-content-center gap-2 p-2">
+                <button class="btn btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#modalEditarTarea">
+                  <i class="bi bi-pen-fill"></i>
+                </button>
+                <button class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarTarea">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-----------------------------------------------Botón nueva tarea--------------------------------------------------->
+  <div class="boton-nueva-tarea position-fixed bottom-0 end-0 p-4">
+    <button class="btn-nueva-tarea" data-bs-toggle="modal" data-bs-target="#modalNuevaTarea">
+      <i class="bi bi-plus-circle-fill fs-3"></i>
+    </button>
+  </div>
+
+  <!--------------------------------------------Modal de Editar Tarea-------------------------------------------------->
+  <div class="modal fade" id="modalEditarTarea">
+    <!-- Contenedor del modal centrado-->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 modal-redondeado">
+        <div class="card-body p-5">
+
+          <!-- Encabezado del modal -->
+          <div class="text-center mb-4">
+            <div class="logo-modal">
+              <!-- Imagen del logo -->
+              <img src="../Recursos/Img/LogoSolo.png" alt="Logo" class="img-fluid mb-0"
+                style="width: 70px; z-index: 1000;">
+            </div>
+            <!-- Título y descripción del modal -->
+            <h2 class="titulo-modal mt-3 mb-2">Editar Tarea</h2>
+            <p class="mb-0">Edita los campos necesarios</p>
+          </div>
+
+          <!-- Cuerpo del formulario dividido en dos columnas -->
+          <div class="row">
+
+            <!-- Columna Izquierda: campos de texto -->
+            <div class="col-md-6 mb-3">
+              <form class="p-2">
+                <!-- Campo Título -->
+                <div class="mb-2">
+                  <label for="titulo" class="form-label label-modal">Título</label>
+                  <input type="text" class="form-control" id="titulo" placeholder="Título de la tarea" required>
+                </div>
+                <!-- Campo Descripción -->
+                <div class="mb-2">
+                  <label for="descripcion" class="form-label label-modal">Descripción</label>
+                  <textarea class="form-control" id="descripcion" placeholder="Descripción de la tarea"
+                    required></textarea>
+                </div>
+                <!-- Campo Etiqueta -->
+                <div class="mb-2">
+                  <label for="etiqueta" class="form-label label-modal">Etiqueta</label>
+                  <input type="text" class="form-control" id="etiqueta" placeholder="Etiqueta de la tarea" required>
+                </div>
+              </form>
+            </div>
+
+            <!-- Columna Derecha: prioridad y fechas -->
+            <div class="col-md-6 mb-3">
+              <form class="p-2">
+                <!-- Campo Prioridad -->
+                <div class="mb-2">
+                  <label for="prioridad" class="form-label label-modal">Prioridad</label>
+                  <select class="form-control" id="prioridad" required>
+                    <option value="baja">Baja</option>
+                    <option value="media">Media</option>
+                    <option value="alta">Alta</option>
+                  </select>
+                </div>
+                <!-- Campo Fecha Límite -->
+                <div class="mb-2">
+                  <label for="fecha_limite" class="form-label label-modal">Fecha Límite</label>
+                  <input type="date" class="form-control" id="fecha_limite" required>
+                </div>
+                <!-- Campo Fecha de Creación (solo lectura) -->
+                <div class="mb-2">
+                  <label for="fecha_creacion" class="form-label label-modal">Fecha de Creación</label>
+                  <input type="date" class="form-control" id="fecha_creacion" value="{{fecha_actual}}" disabled>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Botones de acción (Guardar y Cancelar) -->
+          <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="submit" class="btn-modal">Guardar</button>
+            <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--------------------------------------------Modal de Nueva Tarea--------------------------------------------------->
+  <div class="modal fade" id="modalNuevaTarea">
+    <!-- Contenedor del modal centrado-->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 modal-redondeado">
+        <div class="card-body p-5">
+
+          <!-- Encabezado del modal -->
+          <div class="text-center mb-4">
+            <div class="logo-modal">
+              <!-- Imagen del logo -->
+              <img src="../Recursos/Img/LogoSolo.png" alt="Logo" class="img-fluid mb-0"
+                style="width: 70px; z-index: 1000;">
+            </div>
+            <!-- Título y descripción del modal -->
+            <h2 class="titulo-modal mt-3 mb-2">Crear Tarea</h2>
+            <p class="mb-0">Completa los datos para agregar una nueva tarea</p>
+          </div>
+
+          <!-- Cuerpo del formulario dividido en dos columnas -->
+          <div class="row">
+
+            <!-- Columna Izquierda: campos de texto -->
+            <div class="col-md-6 mb-3">
+              <form class="p-2">
+                <!-- Campo Título -->
+                <div class="mb-2">
+                  <label for="titulo" class="form-label label-modal">Título</label>
+                  <input type="text" class="form-control" id="titulo" placeholder="Título de la tarea" required>
+                </div>
+                <!-- Campo Descripción -->
+                <div class="mb-2">
+                  <label for="descripcion" class="form-label label-modal">Descripción</label>
+                  <textarea class="form-control" id="descripcion" placeholder="Descripción de la tarea"
+                    required></textarea>
+                </div>
+                <!-- Campo Etiqueta -->
+                <div class="mb-2">
+                  <label for="etiqueta" class="form-label label-modal">Etiqueta</label>
+                  <input type="text" class="form-control" id="etiqueta" placeholder="Etiqueta de la tarea" required>
+                </div>
+              </form>
+            </div>
+
+            <!-- Columna Derecha: prioridad y fechas -->
+            <div class="col-md-6 mb-3">
+              <form class="p-2">
+                <!-- Campo Prioridad -->
+                <div class="mb-2">
+                  <label for="prioridad" class="form-label label-modal">Prioridad</label>
+                  <select class="form-control" id="prioridad" required>
+                    <option value="baja">Baja</option>
+                    <option value="media">Media</option>
+                    <option value="alta">Alta</option>
+                  </select>
+                </div>
+                <!-- Campo Fecha Límite -->
+                <div class="mb-2">
+                  <label for="fecha_limite" class="form-label label-modal">Fecha Límite</label>
+                  <input type="date" class="form-control" id="fecha_limite" required>
+                </div>
+                <!-- Campo Fecha de Creación (solo lectura) -->
+                <div class="mb-2">
+                  <label for="fecha_creacion" class="form-label label-modal">Fecha de Creación</label>
+                  <input type="date" class="form-control" id="fecha_creacion" value="{{fecha_actual}}" disabled>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Botones de acción (Guardar y Cancelar) -->
+          <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="submit" class="btn-modal">Guardar</button>
+            <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Eliminar Tarea -->
+  <div class="modal fade" id="modalEliminarTarea" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content border-0 modal-redondeado">
+        <div class="card-body p-4">
+
+          <!-- Titulo de modal -->
+          <div class="text-center mb-4">
+            <div class="logo-modal">
+              <img src="../Recursos/Img/LogoSolo.png" alt="Logo" class="img-fluid mb-0" style="width: 70px;">
+            </div>
+            <h2 class="titulo-modal mt-3 mb-3">¡Eliminar Tarea!</h2>
+            <p class="mb-0">¿Está seguro de querer eliminar la tarea?</p>
+          </div>
+
+          <!-- Botones de acción (Confirmar y Cancelar) -->
+          <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="submit" class="btn-modal">Confirmar</button>
+            <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="../JavaScript/ModoOscuro.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
