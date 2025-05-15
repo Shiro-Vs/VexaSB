@@ -171,34 +171,4 @@
     border-radius: 15px;
   }
 
-  /*Modales*/
-  .titulo-modal {
-    font-size: 24px;
-  }
-
-  .label-modal {
-    font-size: 14px;
-    margin-left: 10px;
-  }
-
-  .form-control {
-    height: 40px;
-    font-size: 16px;
-    border-radius: 10px;
-  }
-
-  .form {
-    padding: 15px;
-  }
-
-  .btn-modal,
-  .btn-cancelar {
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 20px;
-  }
-
-  .modal-redondeado {
-    border-radius: 20px;
-  }
 }
