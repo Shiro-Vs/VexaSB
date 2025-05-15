@@ -49,3 +49,24 @@
   opacity: 1;
 }
 
+/*------------------------------MediaQuery----------------------------------*/
+@media (max-width: 991px) {
+  /*Navbar*/
+  .navbar-vertical {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-right: none;
+    border-bottom: 1px solid #d1d1d1;
+  }
+
+  .navbar-contenedor {
+    margin-bottom: 0;
+  }
+
+  .badge-hover {
+    display: none;
+  }
+}
