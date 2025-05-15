@@ -79,41 +79,6 @@
 /*------------------------------MediaQuery----------------------------------*/
 @media (max-width: 991px) {
 
-  /*Navbar*/
-  .navbar-vertical {
-    width: 100%;
-    height: 60px;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px 15px;
-    border-right: none;
-    border-bottom: 1px solid #d1d1d1;
-  }
-
-  .navbar-contenedor {
-    margin-bottom: 0;
-  }
-
-  .badge-hover {
-    display: none;
-  }
-
-  /*Barra de busqueda*/
-  .barra-busqueda {
-    height: 40px;
-    top: 80px;
-    width: calc(100% - 105px); 
-    left: 15px;
-    right: 15px;
-    border-radius: 15px;
-    background-color: #E1E1E1;
-  }
-
-  .input-busqueda {
-    height: 32px !important;
-    font-size: 14px !important;
-  }
-
   /*Tabla*/
 
   .container-tabla {
@@ -138,37 +103,6 @@
   .btn-eliminar {
     font-size: 14px;
     padding: 6px 10px;
-  }
-
-  /*Perfil*/
-  .perfil {
-    top: 77px;
-    right: 15px;
-  }
-
-  .opcion-menu {
-    font-size: 12px;
-  }
-
-  #menuMiniPerfil {
-    top: 40%;
-    left: -335%;
-    width: 400%;
-  }
-
-  .img-perfil {
-    width: 30px;
-    height: 30px;
-  }
-
-  .img-perfil-mini {
-    width: 50px;
-    height: 50px;
-  }
-
-  .menu-contenedor {
-    width: 100%;
-    border-radius: 15px;
   }
 
 }
