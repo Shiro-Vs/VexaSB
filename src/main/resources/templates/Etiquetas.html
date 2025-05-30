@@ -49,13 +49,13 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <!---------------------------------------- Ejemplos ------------------------------------------------>
+        <!---------------------------------------- datos de la tabla ------------------------------------------------>
         <tbody class="table-responsive">
-          <tr th:each="etiquetas : ${etiquetas}">
-            <td th:text="${etiquetas.id}"></td>
-            <td th:text="${etiquetas.nombre}"></td>
-            <td th:text="${etiquetas.descripcion}"></td>
-            <td th:text="${etiquetas.color}"></td>
+          <tr th:each="etiqueta, iterStat : ${etiquetas}">
+            <td th:text="${iterStat.index + 1}"></td> 
+            <td th:text="${etiqueta.nombre}"></td>
+            <td th:text="${etiqueta.descripcion}"></td>
+            <td th:text="${etiqueta.color}"></td>
 
             <td class="td-acciones">
               <div class="d-flex justify-content-center gap-2 p-2">
@@ -63,7 +63,7 @@
                   <i class="bi bi-pen-fill"></i>
                 </button>
                 <button class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarEtiqueta"
-                  th:attr="data-id=${etiquetas.id}">
+                  th:attr="data-id=${etiqueta.id_etiqueta}">
                   <i class="bi bi-trash-fill"></i>
                 </button>
 
@@ -74,6 +74,70 @@
       </table>
     </div>
   </div>
+
+
+  <!--------------------------------------------Modal de Nueva Etiqueta--------------------------------------------------->
+  <div class="modal fade" id="modalNuevaEtiqueta">
+    <!-- Contenedor del modal centrado-->
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 modal-redondeado">
+        <div class="card-body p-5">
+
+          <!-- Encabezado del modal -->
+          <div class="text-center mb-4">
+            <div class="logo-modal">
+              <!-- Imagen del logo -->
+              <img src="../Recursos/Img/LogoSolo.png" alt="Logo" class="img-fluid mb-0"
+                style="width: 70px; z-index: 1000;">
+            </div>
+            <!-- Título y descripción del modal -->
+            <h2 class="titulo-modal mt-3 mb-2">Crear Etiqueta</h2>
+            <p class="mb-0">Completa los datos para agregar una nueva etiqueta</p>
+          </div>
+
+          <form class="p-2" th:action="@{/etiquetas}" method="post">
+            <div class="row">
+              <!-- Columna izquierda -->
+              <div class="col-md-6 mb-3">
+                <!-- Título -->
+                <div class="mb-2">
+                  <label for="titulo" class="form-label label-modal">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>  
+                <!-- Descripción -->
+                <div class="mb-2">
+                  <label for="descripcion" class="form-label label-modal">Descripción</label>
+                  <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+                </div>
+              </div>
+
+              <!-- Columna derecha -->
+              <div class="col-md-6 mb-3">
+                <!-- Color -->
+                <div class="mb-2">
+                  <label for="etiqueta" class="form-label label-modal">Color</label>
+                  <input type="text" class="form-control" id="color" name="color" required>
+                </div>
+                <!-- Icono -->
+                <div class="mb-2">
+                  <label for="etiqueta" class="form-label label-modal">Icono</label>
+                  <input type="text" class="form-control" id="icono" name="icono" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-center gap-3 mt-4">
+              <button type="submit" class="btn-modal">Guardar</button>
+              <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!--------------------------------------------------- Modal Eliminar Tarea -------------------------------------------------->
   <div class="modal fade" id="modalEliminarEtiqueta" tabindex="-1" aria-hidden="true">
@@ -105,7 +169,7 @@
 
   <!-----------------------------------------------Botón nueva etiqueta--------------------------------------------------->
   <div class="boton-nueva-tarea position-fixed bottom-0 end-0 p-4">
-    <button class="btn-nueva-tarea" data-bs-toggle="modal" data-bs-target="#modalNuevaTarea">
+    <button class="btn-nueva-tarea" data-bs-toggle="modal" data-bs-target="#modalNuevaEtiqueta">
       <i class="bi bi-plus-circle-fill fs-3"></i>
     </button>
   </div>

@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" th:href="@{/CSS/Inicio.css}" />
   <!-- Componentes -->
-  <link rel="stylesheet" th:href="@{/CSS/Componentes/Globales.css}" />
-  <link rel="stylesheet" th:href="@{/CSS/Componentes/Navbar.css}" />
-  <link rel="stylesheet" th:href="@{/CSS/Componentes/BarraBusqueda.css}" />
-  <link rel="stylesheet" th:href="@{/CSS/Componentes/Modales.css}" />
-  <link rel="stylesheet" th:href="@{/CSS/Componentes/Perfil.css}" />
-  <link rel="stylesheet" th:href="@{/CSS/Componentes/ModoOscuro.css}" />
+  <link rel="stylesheet" th:href="@{/CSS/Componentes/Globales.css}"/>
+  <link rel="stylesheet" th:href="@{/CSS/Componentes/Navbar.css}"/>
+  <link rel="stylesheet" th:href="@{/CSS/Componentes/BarraBusqueda.css}"/>
+  <link rel="stylesheet" th:href="@{/CSS/Componentes/Modales.css}"/>
+  <link rel="stylesheet" th:href="@{/CSS/Componentes/Perfil.css}"/>
+  <link rel="stylesheet" th:href="@{/CSS/Componentes/ModoOscuro.css}"/>
 </head>
 
 <body>
@@ -49,32 +49,33 @@
             <th>Etiqueta</th>
             <th>Estado</th>
             <th>Prioridad</th>
-            <th>Fecha Límite</th>
             <th>Fecha Creación</th>
+            <th>Fecha Límite</th>
             <th>Check List</th>
             <th>Acciones</th>
           </tr>
         </thead>
-        <!---------------------------------------- Ejemplos ------------------------------------------------>
+        <!---------------------------------------- Datos de tabla ------------------------------------------------>
         <tbody class="table-responsive">
-          <tr th:each="tarea : ${tareas}">
-            <td th:text="${tarea.id}"></td>
+          <tr th:each="tarea, iterStat: ${tareas}">
+            <td th:text="${iterStat.index + 1}"></td>
             <td th:text="${tarea.titulo}"></td>
             <td th:text="${tarea.descripcion}"></td>
             <td th:text="${tarea.etiqueta}"></td>
             <td th:text="${tarea.estado}"></td>
             <td th:text="${tarea.prioridad}"></td>
-            <td th:text="${tarea.fechaLimite}"></td>
-            <td th:text="${tarea.fechaCreacion}"></td>
+            <td th:text="${#temporals.format(tarea.fechaCreacion, 'dd MMM yy')}"></td>
+            <td th:text="${#temporals.format(tarea.fechaLimite, 'dd MMM yy')}"></td>
             <td>
-              <input class="form-check-input" type="checkbox" th:checked="${tarea.checkList}" >
+              <input class="form-check-input" type="checkbox" th:checked="${tarea.checkList}">
             </td>
             <td class="td-acciones">
               <div class="d-flex justify-content-center gap-2 p-2">
                 <button class="btn btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#modalEditarTarea">
                   <i class="bi bi-pen-fill"></i>
                 </button>
-                <button class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarTarea">
+                <button class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminarTarea"
+                  th:attr="data-id=${tarea.id}">
                   <i class="bi bi-trash-fill"></i>
                 </button>
               </div>
@@ -192,62 +193,62 @@
             <p class="mb-0">Completa los datos para agregar una nueva tarea</p>
           </div>
 
-          <!-- Cuerpo del formulario dividido en dos columnas -->
-          <div class="row">
-
-            <!-- Columna Izquierda: campos de texto -->
-            <div class="col-md-6 mb-3">
-              <form class="p-2">
-                <!-- Campo Título -->
+          <form class="p-2" th:action="@{/tareas}" method="post">
+            <div class="row">
+              <!-- Columna izquierda -->
+              <div class="col-md-6 mb-3">
+                <!-- Título -->
                 <div class="mb-2">
                   <label for="titulo" class="form-label label-modal">Título</label>
-                  <input type="text" class="form-control" id="titulo" placeholder="Título de la tarea" required>
+                  <input type="text" class="form-control" id="titulo" name="titulo" required>
                 </div>
-                <!-- Campo Descripción -->
+                <!-- Descripción -->
                 <div class="mb-2">
                   <label for="descripcion" class="form-label label-modal">Descripción</label>
-                  <textarea class="form-control" id="descripcion" placeholder="Descripción de la tarea"
-                    required></textarea>
+                  <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
                 </div>
-                <!-- Campo Etiqueta -->
+                <!-- Etiqueta -->
                 <div class="mb-2">
                   <label for="etiqueta" class="form-label label-modal">Etiqueta</label>
-                  <input type="text" class="form-control" id="etiqueta" placeholder="Etiqueta de la tarea" required>
+                  <select class="form-control" id="etiqueta" name="etiqueta" required>
+                    <option value="">Selecciona una etiqueta</option>
+                    <option th:each="etiq : ${etiquetas}" th:value="${etiq.id_etiqueta}" th:text="${etiq.nombre}">
+                    </option>
+                  </select>
                 </div>
-              </form>
-            </div>
+              </div>
 
-            <!-- Columna Derecha: prioridad y fechas -->
-            <div class="col-md-6 mb-3">
-              <form class="p-2">
-                <!-- Campo Prioridad -->
+              <!-- Columna derecha -->
+              <div class="col-md-6 mb-3">
+                <!-- Prioridad -->
                 <div class="mb-2">
                   <label for="prioridad" class="form-label label-modal">Prioridad</label>
-                  <select class="form-control" id="prioridad" required>
+                  <select class="form-control" id="prioridad" name="prioridad" required>
                     <option value="baja">Baja</option>
                     <option value="media">Media</option>
                     <option value="alta">Alta</option>
                   </select>
                 </div>
-                <!-- Campo Fecha Límite -->
+                <!-- Fecha límite -->
                 <div class="mb-2">
-                  <label for="fecha_limite" class="form-label label-modal">Fecha Límite</label>
-                  <input type="date" class="form-control" id="fecha_limite" required>
+                  <label for="fechaLimite" class="form-label label-modal">Fecha Límite</label>
+                  <input type="date" class="form-control" id="fechaLimite" name="fechaLimite" required>
                 </div>
-                <!-- Campo Fecha de Creación (solo lectura) -->
+                <!-- Fecha de creación -->
                 <div class="mb-2">
-                  <label for="fecha_creacion" class="form-label label-modal">Fecha de Creación</label>
-                  <input type="date" class="form-control" id="fecha_creacion" value="{{fecha_actual}}" disabled>
+                  <label for="fechaCreacion" class="form-label label-modal">Fecha de Creación</label>
+                  <input type="date" class="form-control" id="fechaCreacion" name="fechaCreacion"
+                    th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" readonly>
                 </div>
-              </form>
+              </div>
             </div>
-          </div>
 
-          <!-- Botones de acción (Guardar y Cancelar) -->
-          <div class="d-flex justify-content-center gap-3 mt-4">
-            <button type="submit" class="btn-modal">Guardar</button>
-            <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
-          </div>
+            <!-- Botones -->
+            <div class="d-flex justify-content-center gap-3 mt-4">
+              <button type="submit" class="btn-modal">Guardar</button>
+              <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
 
         </div>
       </div>
@@ -269,17 +270,31 @@
             <p class="mb-0">¿Está seguro de querer eliminar la tarea?</p>
           </div>
 
-          <!-- Botones de acción (Confirmar y Cancelar) -->
-          <div class="d-flex justify-content-center gap-3 mt-4">
-            <button type="submit" class="btn-modal">Confirmar</button>
-            <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
-          </div>
+          <form action="/tareas/eliminar" method="post">
+            <input type="hidden" id="idTareaEliminar" name="id" value="">
+
+            <!-- Botones de acción (Confirmar y Cancelar) -->
+            <div class="d-flex justify-content-center gap-3 mt-4">
+              <button type="submit" class="btn-modal">Confirmar</button>
+              <button type="button" class="btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
 
         </div>
       </div>
     </div>
   </div>
 
+  <script>
+    var modalEliminar = document.getElementById('modalEliminarTarea');
+    modalEliminar.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget; // botón que abrió el modal
+      var tareaId = button.getAttribute('data-id'); // toma el ID del botón
+
+      var inputId = modalEliminar.querySelector('#idTareaEliminar');
+      inputId.value = tareaId; // asigna el ID al input oculto
+    });
+  </script>
 
   <script src="../JavaScript/ModoOscuro.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
